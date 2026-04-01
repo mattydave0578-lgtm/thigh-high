@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thigh High | Cape Town's Best Burgers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── RESET & BASE ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow:  #F7C948;
+      --red:     #C0281A;
+      --black:   #141414;
+      --offblack:#1E1E1E;
+      --cream:   #FAF3E0;
+      --green:   #3D7A3A;
+      --white:   #FFFFFF;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-marker:  'Permanent Marker', cursive;
+      --font-body:    'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--black);
+      color: var(--cream);
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ─── UTILITY ─── */
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section-label {
+      font-family: var(--font-marker);
+      color: var(--yellow);
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      line-height: 1;
+      color: var(--white);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 16px 36px;
+      border-radius: 4px;
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-yellow {
+      background: var(--yellow);
+      color: var(--black);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--yellow);
+      color: var(--yellow);
+    }
+    .btn-outline:hover { background: var(--yellow); color: var(--black); }
+
+    /* ─── NOISE TEXTURE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ─── NAV ─── */
+    #nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 0 24px;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    #nav.scrolled {
+      background: rgba(20,20,20,0.96);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    }
+
+    .nav-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 0.06em;
+      color: var(--yellow);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-logo span { color: var(--white); }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 36px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cream);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--yellow); }
+
+    .nav-cta {
+      background: var(--yellow);
+      color: var(--black) !important;
+      padding: 10px 22px;
+      border-radius: 4px;
+      font-family: var(--font-display);
+      font-size: 1rem !important;
+      letter-spacing: 0.08em;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+    .nav-cta:hover { background: #e6b93a !important; color: var(--black) !important; transform: translateY(-1px); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      width: 26px;
+      height: 2px;
+      background: var(--yellow);
+      border-radius: 2px;
+      transition: all 0.3s;
+      display: block;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      color: var(--cream);
+      letter-spacing: 0.1em;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--yellow); }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 120px 24px 80px;
+      background: var(--black);
+    }
+
+    /* Animated gradient bg */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 20% 50%, rgba(192,40,26,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 70% at 80% 30%, rgba(247,201,72,0.15) 0%, transparent 70%);
+      animation: heroGlow 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes heroGlow {
+      from { opacity: 0.7; transform: scale(1); }
+      to   { opacity: 1;   transform: scale(1.05); }
+    }
+
+    /* Big decorative letter */
+    #hero::after {
+      content: 'TH';
+      position: absolute;
+      right: -2vw;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(180px, 28vw, 380px);
+      color: rgba(255,255,255,0.03);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      font-family: var(--font-marker);
+      font-size: 1rem;
+      padding: 6px 18px;
+      border-radius: 2px;
+      margin-bottom: 28px;
+      transform: rotate(-1.5deg);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(4.5rem, 14vw, 11rem);
+      line-height: 0.9;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .hero-title .yellow { color: var(--yellow); }
+    .hero-title .strike {
+      text-decoration: line-through;
+      text-decoration-color: var(--red);
+      text-decoration-thickness: 6px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: rgba(250,243,224,0.75);
+      max-width: 520px;
+      margin: 24px auto 40px;
+      line-height: 1.6;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: bounce 2.5s ease-in-out infinite;
+    }
+    .hero-scroll-hint svg { width: 20px; height: 20px; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ─── TICKER TAPE ─── */
+    .ticker {
+      background: var(--yellow);
+      padding: 14px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .ticker-inner {
+      display: inline-flex;
+      animation: ticker 22s linear infinite;
+      gap: 0;
+    }
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 32px;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      letter-spacing: 0.08em;
+      color: var(--black);
+    }
+    .ticker-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--red);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── OUR STORY ─── */
+    #story {
+      padding: 120px 0;
+      background: var(--offblack);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #story::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: var(--offblack);
+      clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .story-text .section-title { margin-bottom: 28px; }
+
+    .story-text p {
+      color: rgba(250,243,224,0.75);
+      line-height: 1.8;
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+    }
+    .story-text p:last-child { margin-bottom: 0; }
+
+    .story-text strong { color: var(--yellow); font-weight: 700; }
+
+    .story-pillars {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .pillar {
+      background: var(--black);
+      border: 1px solid rgba(247,201,72,0.15);
+      border-left: 4px solid var(--yellow);
+      border-radius: 8px;
+      padding: 28px 28px 28px 32px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .pillar:hover {
+      border-color: var(--yellow);
+      transform: translateX(6px);
+    }
+
+    .pillar-icon { font-size: 2rem; margin-bottom: 10px; }
+    .pillar-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--yellow);
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .pillar p {
+      color: rgba(250,243,224,0.65);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* ─── MENU ─── */
+    #menu {
+      padding: 120px 0;
+      background: var(--black);
+    }
+
+    .menu-header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+    .menu-header .section-title { margin-bottom: 16px; }
+    .menu-header p {
+      color: rgba(250,243,224,0.6);
+      font-size: 1.05rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .menu-category-title {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      letter-spacing: 0.08em;
+      color: var(--red);
+      margin: 60px 0 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .menu-category-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(192,40,26,0.3);
+    }
+
+    .burger-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .burger-card {
+      background: var(--offblack);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform 0.3s, border-color 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .burger-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(247,201,72,0.3);
+    }
+
+    .burger-card-top {
+      background: linear-gradient(135deg, var(--red) 0%, #8B1A10 100%);
+      padding: 28px 28px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .burger-card-top::after {
+      content: attr(data-emoji);
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 3.5rem;
+      opacity: 0.25;
+    }
+
+    .burger-name {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      position: relative;
+      z-index: 1;
+    }
+    .burger-badge {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--black);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 2px;
+      margin-top: 6px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .burger-card-body {
+      padding: 24px 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .burger-desc {
+      color: rgba(250,243,224,0.7);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .burger-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .burger-price {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--yellow);
+      letter-spacing: 0.04em;
+    }
+
+    .burger-spice {
+      display: flex;
+      gap: 2px;
+    }
+    .burger-spice span { font-size: 0.9rem; }
+
+    /* Sides & Drinks grid */
+    .sides-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .side-card {
+      background: var(--offblack);
+      border-radius: 10px;
+      padding: 22px 24px;
+      border: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: border-color 0.3s;
+    }
+    .side-card:hover { border-color: rgba(247,201,72,0.25); }
+
+    .side-info {}
+    .side-name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .side-desc {
+      font-size: 0.85rem;
+      color: rgba(250,243,224,0.5);
+    }
+    .side-price {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--yellow);
+      flex-shrink: 0;
+      margin-left: 16px;
+    }
+
+    /* ─── HOW IT'S MADE ─── */
+    #process {
+      padding: 120px 0;
+      background: var(--yellow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #process .section-label { color: var(--red); }
+    #process .section-title { color: var(--black); }
+
+    .process-header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+    .process-header p {
+      color: rgba(20,20,20,0.65);
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin: 16px auto 0;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2px;
+      background: rgba(20,20,20,0.1);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .process-step {
+      background: var(--yellow);
+      padding: 44px 36px;
+      position: relative;
+      transition: background 0.3s;
+    }
+    .process-step:hover { background: #e6b93a; }
+
+    .step-number {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: rgba(20,20,20,0.08);
+      line-height: 1;
+      margin-bottom: -10px;
+    }
+    .step-icon { font-size: 2.5rem; margin-bottom: 16px; }
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+      color: var(--black);
+      margin-bottom: 12px;
+    }
+    .step-desc {
+      color: rgba(20,20,20,0.7);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* ─── REVIEWS ─── */
+    #reviews {
+      padding: 120px 0;
+      background: var(--offblack);
+    }
+
+    .reviews-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .reviews-header .section-title { margin-bottom: 12px; }
+    .reviews-header p {
+      color: rgba(250,243,224,0.5);
+      font-size: 1rem;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .review-card {
+      background: var(--black);
+      border-radius: 12px;
+      padding: 32px;
+      border: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .review-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(247,201,72,0.2);
+    }
+
+    .review-stars { display: flex; gap: 4px; }
+    .review-stars span { font-size: 1.1rem; }
+
+    .review-quote {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--yellow);
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+    }
+
+    .review-body {
+      color: rgba(250,243,224,0.7);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      flex: 1;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .review-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--black);
+      flex-shrink: 0;
+    }
+
+    .review-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--white);
+    }
+    .review-location {
+      font-size: 0.8rem;
+      color: rgba(250,243,224,0.4);
+      margin-top: 2px;
+    }
+
+    /* ─── VISIT US ─── */
+    #visit {
+      padding: 120px 0;
+      background: var(--black);
+    }
+
+    .visit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .visit-text .section-title { margin-bottom: 40px; }
+
+    .visit-block {
+      margin-bottom: 36px;
+    }
+    .visit-block-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      letter-spacing: 0.1em;
+      color: var(--yellow);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .visit-block p, .visit-block address {
+      color: rgba(250,243,224,0.7);
+      font-style: normal;
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+    .visit-block strong { color: var(--white); }
+
+    .visit-map {
+      background: var(--offblack);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .map-placeholder {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 48px;
+      text-align: center;
+      background: linear-gradient(135deg, #1E1E1E 0%, #161616 100%);
+    }
+    .map-pin { font-size: 3rem; }
+    .map-placeholder h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--yellow);
+    }
+    .map-placeholder p {
+      color: rgba(250,243,224,0.5);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .visit-note {
+      background: rgba(192,40,26,0.12);
+      border: 1px solid rgba(192,40,26,0.3);
+      border-radius: 8px;
+      padding: 18px 22px;
+      font-size: 0.9rem;
+      color: rgba(250,243,224,0.75);
+      line-height: 1.6;
+      margin-top: 32px;
+    }
+    .visit-note strong { color: var(--red); }
+
+    /* ─── FOOTER ─── */
+    #footer {
+      background: var(--offblack);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 64px 0 32px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 56px;
+    }
+
+    .footer-brand {}
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      color: var(--yellow);
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+    }
+    .footer-tagline {
+      font-family: var(--font-marker);
+      font-size: 1.05rem;
+      color: rgba(250,243,224,0.5);
+      margin-bottom: 24px;
+    }
+    .footer-socials {
+      display: flex;
+      gap: 12px;
+    }
+    .social-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(250,243,224,0.6);
+      font-size: 1.1rem;
+      transition: background 0.2s, color 0.2s;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+    }
+    .social-btn:hover { background: var(--yellow); color: var(--black); }
+
+    .footer-col h4 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a {
+      color: rgba(250,243,224,0.5);
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--yellow); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy {
+      color: rgba(250,243,224,0.3);
+      font-size: 0.85rem;
+    }
+    .footer-love {
+      color: rgba(250,243,224,0.3);
+      font-size: 0.85rem;
+    }
+    .footer-love span { color: var(--red); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .story-grid   { grid-template-columns: 1fr; gap: 48px; }
+      .visit-grid   { grid-template-columns: 1fr; gap: 48px; }
+      .footer-grid  { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1/-1; }
+      .nav-links    { display: none; }
+      .hamburger    { display: flex; }
+    }
+
+    @media (max-width: 600px) {
+      .footer-grid  { grid-template-columns: 1fr; }
+      .burger-grid  { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; border-radius: 12px; }
+      .hero-title   { font-size: clamp(3.5rem, 18vw, 6rem); }
+      .hero-buttons { flex-direction: column; align-items: center; }
+    }
+
+    /* ─── SCROLL ANIMATIONS ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+  </style>
+</head>
+
+<body>
+
+  <!-- ─── NAV ─── -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <div class="nav-logo">🍗 THIGH<span>HIGH</span></div>
+      <ul class="nav-links">
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#process">The Process</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#visit" class="nav-cta">Find Us</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#story" class="mobile-link">Our Story</a>
+    <a href="#menu" class="mobile-link">Menu</a>
+    <a href="#process" class="mobile-link">The Process</a>
+    <a href="#reviews" class="mobile-link">Reviews</a>
+    <a href="#visit" class="mobile-link">Find Us</a>
+  </div>
+
+  <!-- ─── HERO ─── -->
+  <section id="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Cape Town's Most Wanted 🔥</div>
+      <h1 class="hero-title">
+        THIGH<br>
+        <span class="yellow">HIGH</span><br>
+        <span style="font-size:0.45em; letter-spacing:0.05em; color:rgba(255,255,255,0.55);">BURGERS</span>
+      </h1>
+      <p class="hero-sub">
+        We don't do breast. Never have, never will. Every burger starts with a juicy chicken thigh, drowning in house mayo and loaded with pickles. No shortcuts. No apologies.
+      </p>
+      <div class="hero-buttons">
+        <a href="#menu" class="btn btn-yellow">See the Menu 🍔</a>
+        <a href="#story" class="btn btn-outline">Our Story</a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ─── TICKER ─── -->
+  <div class="ticker">
+    <div class="ticker-inner" id="tickerInner">
+      <!-- duplicated for seamless loop -->
+      <span class="ticker-item"><span class="ticker-dot"></span>THIGHS ONLY</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>LOADED WITH PICKLES 🥒</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>SECRET HOUSE MAYO</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>CAPE TOWN'S BEST</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>NO BREAST. EVER. 🍗</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>UNAPOLOGETICALLY BOLD</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>THIGHS ONLY</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>LOADED WITH PICKLES 🥒</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>SECRET HOUSE MAYO</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>CAPE TOWN'S BEST</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>NO BREAST. EVER. 🍗</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>UNAPOLOGETICALLY BOLD</span>
+    </div>
+  </div>
+
+  <!-- ─── OUR STORY ─── -->
+  <section id="story">
+    <div class="container">
+      <div class="story-grid">
+        <div class="story-text reveal">
+          <span class="section-label">// who we are</span>
+          <h2 class="section-title">THE THIGH<br>MANIFESTO</h2>
+          <p>
+            It started with an argument. Jayden and Lerato were grilling at Jayden's flat in Salt River, and someone had the nerve to serve a <strong>breast fillet burger</strong>. Dry. Flavourless. An insult to the craft. That night, they made a pact: never again.
+          </p>
+          <p>
+            <strong>Chicken thighs are superior</strong> — more fat, more flavour, more moisture. They can take the heat of the grill, the soak of a brine, the weight of every topping you throw at them. They don't dry out. They don't give up. They're built different.
+          </p>
+          <p>
+            The <strong>pickles came next</strong>. Not the sad, limp pickles you find at chain restaurants. We source and brine our own — thick-cut, punchy, with just enough heat to make you reach for the next bite. They cut through the richness of the thigh perfectly.
+          </p>
+          <p>
+            And then there's the <strong>house mayo</strong>. Lerato's grandmother's recipe, tweaked obsessively over two years. Egg yolks, a hint of toasted garlic, white wine vinegar, and something we'll never tell you. It ties everything together. It's the reason people drive from Stellenbosch.
+          </p>
+        </div>
+        <div class="story-pillars reveal reveal-delay-2">
+          <div class="pillar">
+            <div class="pillar-icon">🍗</div>
+            <div class="pillar-title">THIGHS ONLY</div>
+            <p>We auditioned the breast. We fired it after day one. The thigh delivers more flavour per bite, stays juicy under pressure, and handles bold seasoning without flinching. There is no other option.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">🥒</div>
+            <div class="pillar-title">THE PICKLE OBSESSION</div>
+            <p>We brine our own pickles in-house. Thick slices, fermented just long enough to develop that deep, funky tang. Every burger gets a generous handful — not a suggestion of pickles, but a commitment.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">✨</div>
+            <div class="pillar-title">THE HOUSE MAYO</div>
+            <p>Made fresh every morning. Never from a bottle. It's rich, garlicky, slightly tangy, and absolutely the best thing you'll taste all week. We put it on everything, and we're not sorry.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MENU ─── -->
+  <section id="menu">
+    <div class="container">
+      <div class="menu-header reveal">
+        <span class="section-label">// what we're serving</span>
+        <h2 class="section-title">THE LINEUP</h2>
+        <p>Every single one built on a free-range chicken thigh. Every single one loaded. Pick your fighter.</p>
+      </div>
+
+      <div class="menu-category-title reveal">🍔 Signature Burgers</div>
+
+      <div class="burger-grid">
+
+        <div class="burger-card reveal">
+          <div class="burger-card-top" data-emoji="🏆">
+            <div class="burger-name">The OG Thigh</div>
+            <div class="burger-badge">The Classic</div>
+          </div>
+          <div class="burger-card-body">
+            <p class="burger-desc">Where it all started. Crispy buttermilk-fried chicken thigh, thick-cut house pickles, shredded iceberg, and an unholy amount of our signature house mayo. Served on a toasted brioche bun.</p>
+            <div class="burger-footer">
+              <div class="burger-price">R109</div>
+              <div class="burger-spice"><span>🌶️</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="burger-card reveal reveal-delay-1">
+          <div class="burger-card-top" data-emoji="🥒" style="background:linear-gradient(135deg,#2E5E2A 0%,#1A3D17 100%)">
+            <div class="burger-name">Pickle Rick</div>
+            <div class="burger-badge">Fan Favourite</div>
+          </div>
+          <div class="burger-card-body">
+            <p class="burger-desc">For the pickle purists. Double-stacked thigh patties, six — yes, six — pickle slices, dill-infused house mayo, and pickled red onion. If you don't love pickles, this isn't for you. Served on a pretzel bun.</p>
+            <div class="burger-footer">
+              <div class="burger-price">R135</div>
+              <div class="burger-spice"><span>🌶️</span><span>🌶️</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="burger-card reveal reveal-delay-2">
+          <div class="burger-card-top" data-emoji="🔥" style="background:linear-gradient(135deg,#8B2500 0%,#5C1800 100%)">
+            <div class="burger-name">The Cape Crusader</div>
+            <div class="burger-badge">Cape Town Exclusive</div>
+          </div>
+          <div class="burger-card-body">
+            <p class="burger-desc">Our love letter to Cape Town. Harissa-marinated thigh, pickled peri-peri peppers, house mayo with smoked paprika, crispy fried shallots, and a handful of pickles. Proudly local, loudly delicious.</p>
+            <div class="burger-footer">
+              <div class="burger-price">R129</div>
+              <div class="burger-spice"><span>🌶️</span><span>🌶️</span><span>🌶️</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="burger-card reveal reveal-delay-3">
+          <div class="burger-card-top" data-emoji="👑" style="background:linear-gradient(135deg,#7B5E00 0%,#4A3800 100%)">
+            <div class="burger-name">The Brine Queen</div>
+            <div class="burger-badge">Chef's Pick</div>
+          </div>
+          <div class="burger-card-body">
+            <p class="burger-desc">Thigh brined for 24 hours in our signature pickle brine before frying. The result: every single bite is flavoured to the bone. Topped with bread-and-butter pickles, sharp cheddar, and truffle house mayo.</p>
+            <div class="burger-footer">
+              <div class="burger-price">R149</div>
+              <div class="burger-spice"><span>🌶️</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="burger-card reveal reveal-delay-4">
+          <div class="burger-card-top" data-emoji="💣" style="background:linear-gradient(135deg,#C0281A 0%,#7A1A10 100%)">
+            <div class="burger-name">Thigh Breaker</div>
+            <div class="burger-badge">Handle With Care</div>
+          </div>
+          <div class="burger-card-body">
+            <p class="burger-desc">Two thighs. Double cheddar. Double pickles. Double mayo. Caramelised onions, bacon jam, and a house-made hot sauce that'll make you sweat and smile simultaneously. Not for the faint-hearted.</p>
+            <div class="burger-footer">
+              <div class="burger-price">R165</div>
+              <div class="burger-spice"><span>🌶️</span><span>🌶️</span><span>🌶️</span><span>🌶️</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="burger-card reveal reveal-delay-5">
+          <div class="burger-card-top" data-emoji="🌿" style="background:linear-gradient(135deg,#1F4E3D 0%,#102C22 100%)">
+            <div class="burger-name">Holy Smoked</div>
+            <div class="burger-badge">Slow & Low</div>
+          </div>
+          <div class="burger-card-body">
+            <p class="burger-desc">Thigh smoked low and slow over rooibos wood chips before a quick fry for crunch. Smoked gouda, hickory-pickled cucumbers, pickled jalapeños, and our smoky chipotle house mayo. This one takes patience. Worth every minute.</p>
+            <div class="burger-footer">
+              <div class="burger-price">R142</div>
+              <div class="burger-spice"><span>🌶️</span><span>🌶️</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="burger-card reveal">
+          <div class="burger-card-top" data-emoji="🌙" style="background:linear-gradient(135deg,#2A1F5F 0%,#16103A 100%)">
+            <div class="burger-name">Midnight Run</div>
+            <div class="burger-badge">After Dark Special</div>
+          </div>
+          <div class="burger-card-body">
+            <p class="burger-desc">Activated charcoal bun (yes, it's black), buttermilk fried thigh, ghost pepper pickles, ghost pepper mayo swirled with classic house mayo, pickled watermelon rind, and crispy onion strings. A beautiful disaster.</p>
+            <div class="burger-footer">
+              <div class="burger-price">R155</div>
+              <div class="burger-spice"><span>🌶️</span><span>🌶️</span><span>🌶️</span><span>🌶️</span><span>🌶️</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SIDES -->
+      <div class="menu-category-title reveal">🍟 Sides</div>
+      <div class="sides-grid">
+        <div class="side-card reveal">
+          <div class="side-info">
+            <div class="side-name">Crinkle Cut Fries 🍟</div>
+            <div class="side-desc">Thick, crispy, seasoned with smoked salt</div>
+          </div>
+          <div class="side-price">R55</div>
+        </div>
+        <div class="side-card reveal reveal-delay-1">
+          <div class="side-info">
+            <div class="side-name">Pickle Chips 🥒</div>
+            <div class="side-desc">Deep-fried pickle slices, ranch dip</div>
+          </div>
+          <div class="side-price">R65</div>
+        </div>
+        <div class="side-card reveal reveal-delay-2">
+          <div class="side-info">
+            <div class="side-name">Loaded Fries</div>
+            <div class="side-desc">Crinkle fries, house mayo, pickled jalapeños, cheese sauce</div>
+          </div>
+          <div class="side-price">R85</div>
+        </div>
+        <div class="side-card reveal reveal-delay-3">
+          <div class="side-info">
+            <div class="side-name">Slaw Bowl 🥗</div>
+            <div class="side-desc">Creamy house mayo slaw, toasted seeds</div>
+          </div>
+          <div class="side-price">R48</div>
+        </div>
+        <div class="side-card reveal reveal-delay-4">
+          <div class="side-info">
+            <div class="side-name">Chicken Skin Crackling</div>
+            <div class="side-desc">Fried thigh skin, chilli salt, lemon</div>
+          </div>
+          <div class="side-price">R58</div>
+        </div>
+        <div class="side-card reveal reveal-delay-5">
+          <div class="side-info">
+            <div class="side-name">Pickle Jar 🥒</div>
+            <div class="side-desc">House-brined pickles to take home (500ml)</div>
+          </div>
+          <div class="side-price">R75</div>
+        </div>
+      </div>
+
+      <!-- DRINKS -->
+      <div class="menu-category-title reveal">🥤 Drinks</div>
+      <div class="sides-grid">
+        <div class="side-card reveal">
+          <div class="side-info">
+            <div class="side-name">House Lemonade</div>
+            <div class="side-desc">Fresh, sparkling, with pickled ginger</div>
+          </div>
+          <div class="side-price">R38</div>
+        </div>
+        <div class="side-card reveal reveal-delay-1">
+          <div class="side-info">
+            <div class="side-name">Craft Sodas</div>
+            <div class="side-desc">Rotating local flavours, always cold</div>
+          </div>
+          <div class="side-price">R35</div>
+        </div>
+        <div class="side-card reveal reveal-delay-2">
+          <div class="side-info">
+            <div class="side-name">Local Draft Beer 🍺</div>
+            <div class="side-desc">Cape Town craft selection, ask for today's</div>
+          </div>
+          <div class="side-price">R55</div>
+        </div>
+        <div class="side-card reveal reveal-delay-3">
+          <div class="side-info">
+            <div class="side-name">Thick Shake</div>
+            <div class="side-desc">Vanilla, chocolate, or salted caramel</div>
+          </div>
+          <div class="side-price">R72</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── HOW IT'S MADE ─── -->
+  <section id="process">
+    <div class="container">
+      <div class="process-header reveal">
+        <span class="section-label">// the craft</span>
+        <h2 class="section-title">HOW WE DO IT</h2>
+        <p>There are no shortcuts in this kitchen. Here's what happens before it reaches your hands.</p>
+      </div>
+      <div class="process-steps">
+        <div class="process-step reveal">
+          <div class="step-number">01</div>
+          <div class="step-icon">🍗</div>
+          <div class="step-title">THE THIGH SELECTION</div>
+          <p class="step-desc">We source free-range chicken thighs daily from a small farm outside Paarl. They arrive fresh every morning — never frozen. We trim, clean, and prep each one by hand. Size matters: we pick for consistency so every bite is the same amount of perfection.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-1">
+          <div class="step-number">02</div>
+          <div class="step-icon">🧂</div>
+          <div class="step-title">THE BRINE</div>
+          <p class="step-desc">Each thigh spends at least 12 hours in our buttermilk and herb brine. This isn't optional — it's the difference between a good burger and a life-altering one. The brine tenderises, seasons to the bone, and sets up that crackling crust when it hits the fryer.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-2">
+          <div class="step-number">03</div>
+          <div class="step-icon">🥒</div>
+          <div class="step-title">THE PICKLE PROGRAMME</div>
+          <p class="step-desc">We ferment our own pickles in-house, three different batches running at any time: classic dill, spicy peri-peri, and bread-and-butter. They're cut thick — none of that wafer-thin nonsense — and they go on every single burger without exception.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-3">
+          <div class="step-number">04</div>
+          <div class="step-icon">✨</div>
+          <div class="step-title">THE MAYO RITUAL</div>
+          <p class="step-desc">The house mayo is made from scratch every single morning. Egg yolks from the same farm as our chickens, a splash of white wine vinegar, toasted garlic, and the secret ingredient we will take to our graves. It takes 20 minutes. We do it every day. No compromises.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-4">
+          <div class="step-number">05</div>
+          <div class="step-icon">🔥</div>
+          <div class="step-title">THE FRY</div>
+          <p class="step-desc">Double-dredged in seasoned flour and fried in fresh sunflower oil at exactly 175°C. We check the temperature every 30 minutes — not every hour, not when we remember. The result is a shatteringly crispy exterior and a thigh so juicy it practically steams when you bite into it.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-5">
+          <div class="step-number">06</div>
+          <div class="step-icon">🍔</div>
+          <div class="step-title">THE BUILD</div>
+          <p class="step-desc">Bottom bun gets mayo. Then the thigh. Then the pickles — generous, always. Then whatever else the burger calls for. Then more mayo on the top bun. Every burger is assembled to order, wrapped immediately, and out the window in under 4 minutes. No sitting under a lamp.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── REVIEWS ─── -->
+  <section id="reviews">
+    <div class="container">
+      <div class="reviews-header reveal">
+        <span class="section-label">// don't just take our word for it</span>
+        <h2 class="section-title">THE PEOPLE HAVE SPOKEN</h2>
+        <p>Real reviews. Real Cape Town people. Real obsession.</p>
+      </div>
+      <div class="reviews-grid">
+
+        <div class="review-card reveal">
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+          <div class="review-quote">"I've been to every burger spot in Cape Town. Nothing comes close."</div>
+          <p class="review-body">I was sceptical about the thigh-only thing at first — I'm a breast guy, always have been. Then I had the Brine Queen and I genuinely reconsidered my entire life. The thigh is brined so deeply you can taste it in every single bite. And that truffle house mayo? I've been dreaming about it. Came back three times in the same week.</p>
+          <div class="review-author">
+            <div class="review-avatar" style="background:#F7C948;">TM</div>
+            <div>
+              <div class="review-name">Thabiso Molefe</div>
+              <div class="review-location">Woodstock, Cape Town</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card reveal reveal-delay-1">
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+          <div class="review-quote">"The pickles alone are worth the trip."</div>
+          <p class="review-body">As someone who makes their own ferments at home, I'm incredibly picky about pickles. Thigh High's house pickles are the real deal — properly fermented, thick-cut, tangy without being overwhelming. I ordered a Pickle Jar to take home and my entire family finished it in two days. The Pickle Rick burger is also absolutely unhinged in the best possible way.</p>
+          <div class="review-author">
+            <div class="review-avatar" style="background:#3D7A3A;">SV</div>
+            <div>
+              <div class="review-name">Sunette van der Merwe</div>
+              <div class="review-location">Gardens, Cape Town</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card reveal reveal-delay-2">
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+          <div class="review-quote">"Drove from Stellenbosch specifically for this."</div>
+          <p class="review-body">My mate told me about Thigh High and I thought he was exaggerating. He was not. We drove 50km for the Holy Smoked and the Cape Crusader and I would do it again tomorrow without hesitation. The rooibos smoke on the thigh is subtle but unmistakable — you can actually taste the wood. And the harissa in the Cape Crusader is perfectly balanced. Not just heat for the sake of heat.</p>
+          <div class="review-author">
+            <div class="review-avatar" style="background:#C0281A;">JD</div>
+            <div>
+              <div class="review-name">Jacques du Plessis</div>
+              <div class="review-location">Stellenbosch</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card reveal reveal-delay-3">
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+          <div class="review-quote">"The house mayo has ruined all other mayo for me forever."</div>
+          <p class="review-body">I'm not exaggerating. I tried making it at home based on taste alone and failed badly. There is something in that mayo I cannot identify and it's maddening in a wonderful way. I had the OG Thigh — simple, classic, exactly what it should be. Perfect ratio of mayo to pickle to chicken. The brioche bun holds everything together without going soggy even halfway through. A masterclass in the basics.</p>
+          <div class="review-author">
+            <div class="review-avatar" style="background:#7B5E00;">LN</div>
+            <div>
+              <div class="review-name">Leila Naidoo</div>
+              <div class="review-location">De Waterkant, Cape Town</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card reveal reveal-delay-4">
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+          <div class="review-quote">"Midnight Run is not for the faint-hearted. I respect it deeply."</div>
+          <p class="review-body">I ordered the Midnight Run on a dare. The black bun looks dramatic, the ghost pepper pickles are genuinely hot, and the mayo blend is somehow cooling and fiery at the same time. I finished it, sweated through my shirt, and immediately felt proud. The chicken skin crackling on the side was a brilliant call — crunchy, salty, fatty perfection. This place is dangerous. I've already been four times this month.</p>
+          <div class="review-author">
+            <div class="review-avatar" style="background:#2A1F5F; color:white;">KP</div>
+            <div>
+              <div class="review-name">Kagiso Petersen</div>
+              <div class="review-location">Observatory, Cape Town</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card reveal reveal-delay-5">
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+          <div class="review-quote">"Best burger in Cape Town. No contest. Don't @ me."</div>
+          <p class="review-body">I write a food blog. I've reviewed over 80 restaurants in the Cape. Thigh High is the best burger I've had in this city, and it's not particularly close. What impresses me most is the consistency — my third visit was just as good as my first. The Thigh Breaker is obscene in the best way (two thighs, double everything, bacon jam — yes), and the slaw bowl is the most underrated thing on the menu. Follow us at @CapeTownEats if you want more.</p>
+          <div class="review-author">
+            <div class="review-avatar" style="background:#1F4E3D;">AM</div>
+            <div>
+              <div class="review-name">Amara Mokwena</div>
+              <div class="review-location">@CapeTownEats · Pinelands</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── VISIT US ─── -->
+  <section id="visit">
+    <div class="container">
+      <div class="visit-grid">
+        <div class="visit-text reveal">
+          <span class="section-label">// come find us</span>
+          <h2 class="section-title">COME GET<br>YOUR THIGHS</h2>
+
+          <div class="visit-block">
+            <div class="visit-block-title">📍 Address</div>
+            <address>
+              <strong>Thigh High Burgers</strong><br>
+              14 Albert Road, Woodstock<br>
+              Cape Town, 7925<br>
+              Western Cape, South Africa
+            </address>
+          </div>
+
+          <div class="visit-block">
+            <div class="visit-block-title">🕐 Hours</div>
+            <p>
+              <strong>Monday – Thursday:</strong> 11:00 – 22:00<br>
+              <strong>Friday – Saturday:</strong> 11:00 – 00:00<br>
+              <strong>Sunday:</strong> 12:00 – 21:00<br>
+              <span style="color:rgba(250,243,224,0.4); font-size:0.9rem;">Kitchen closes 30 minutes before closing time</span>
+            </p>
+          </div>
+
+          <div class="visit-block">
+            <div class="visit-block-title">📞 Contact</div>
+            <p>
+              <strong>Phone:</strong> 021 447 8834<br>
+              <strong>WhatsApp:</strong> 071 234 5678<br>
+              <strong>Email:</strong> hello@thighhigh.co.za
+            </p>
+          </div>
+
+          <div class="visit-note">
+            <strong>🚗 Parking & Delivery:</strong> Street parking available on Albert Road and the surrounding side streets. We're also on Uber Eats and Mr D — search <em>"Thigh High"</em> in Woodstock. Delivery radius is 8km from the restaurant. For group orders of 10+, call ahead so we can get the thighs ready.
+          </div>
+        </div>
+
+        <div class="visit-map reveal reveal-delay-2">
+          <div class="map-placeholder">
+            <div class="map-pin">📍</div>
+            <h3>WOODSTOCK, CAPE TOWN</h3>
+            <p>14 Albert Road, Woodstock<br>Cape Town, 7925</p>
+            <a href="https://maps.google.com" target="_blank" class="btn btn-yellow" style="margin-top:16px; font-size:1rem;">Open in Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">🍗 THIGH HIGH</div>
+          <div class="footer-tagline">No breast. No shortcuts. No regrets.</div>
+          <div class="footer-socials">
+            <a href="#" class="social-btn" aria-label="Instagram">IG</a>
+            <a href="#" class="social-btn" aria-label="TikTok">TK</a>
+            <a href="#" class="social-btn" aria-label="Facebook">FB</a>
+            <a href="#" class="social-btn" aria-label="Twitter/X">𝕏</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>NAVIGATE</h4>
+          <ul>
+            <li><a href="#story">Our Story</a></li>
+            <li><a href="#menu">The Menu</a></li>
+            <li><a href="#process">How It's Made</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#visit">Visit Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>THE DETAILS</h4>
+          <ul>
+            <li><a href="#">Allergen Info</a></li>
+            <li><a href="#">Catering & Events</a></li>
+            <li><a href="#">Wholesale Pickles</a></li>
+            <li><a href="#">Work With Us</a></li>
+            <li><a href="#">Press Enquiries</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2024 Thigh High Burgers (Pty) Ltd · Woodstock, Cape Town · All rights reserved</div>
+        <div class="footer-love">Made with <span>♥</span> and way too many pickles 🥒</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── NAV SCROLL EFFECT ───
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // ─── HAMBURGER MENU ───
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // ─── SCROLL REVEAL ───
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ─── SMOOTH SCROLL (for older browsers) ───
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
